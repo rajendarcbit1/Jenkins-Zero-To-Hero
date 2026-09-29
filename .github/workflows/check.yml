@@ -1,0 +1,34 @@
+name: Project Check
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show Git version
+        run: git --version
+
+      - name: Show project files
+        run: ls -la
+
+      - name: Check README
+        run: |
+          if [ -f README.md ]; then
+            echo "README.md exists"
+          else
+            echo "README.md is missing"
+            exit 1
+          fi
+
